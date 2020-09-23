@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+ <head>
+ <title>CalorieBuddy - Update food</title>
+
+ <!-- Include Bootstrap CSS to enable using the framework -->
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ <!-- Include Handlebars from a CDN to use template engine -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js"></script>
+
+ </head>
+ <body>
+ <div class="container"> <!-- Content start -->
+ <h1> CalorieBuddy - Update food </h1> 
+ <br>
+ <!-- Navigation tab bar -->
+ <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" href="home">HOME</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="about">About</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="add-food">Add</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="search-food">Search</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="update-food">Update</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="list-foods">List</a>
+    </li>
+ </ul>
+ <br>
+ <div>
+     <article>
+       This is a CalorieBuddy Update food page. Please inout the name of a food item to be updated. <br>
+     </article>
+ </div>
+ <br>
+ <form action="/topic7/mid-term/food-displayed" method="GET">
+    <input id="search-box" type="text" name="keyword" placeholder="flour">
+    <input type="submit" value="Search" >
+ </form>
+ <br>
+ <table border="1" cellspacing="0" cellpadding="5">
+     <tr>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Name</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">ID</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Typical Value</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Unit</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Cals</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Carbs</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Fat</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Protein</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Salt</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Sugar</font></th>
+     </tr>   
+
+     <!-- item is NOT found: print a message to the user -->
+     <% if(availableFoods.length == 0){ %>       
+      <p>No food item is found.<br></p>
+     <% } %> 
+     <!-- item is found: print the instruction to the user -->
+     <% if(availableFoods.length != 0){ %>       
+      <p>Please update each field (Name and ID cannot be modified).</p>
+     <% } %> 
+
+     <!-- go through the list of foods and print the contents and input form -->
+     <% availableFoods.forEach(function(food){ %>
+     <tr>   
+     <form method="POST" action="/topic7/mid-term/food-deleted" onSubmit="return check()">     
+        <td bgcolor="#99FFCC"><input id="name" type="text" size="10" name="name" value=<%= food.name %> readonly/></td>
+        <td><input id="id" type="text" size="5" name="id" value=<%= food.id %> readonly/></td>
+        <td><input id="typicalval" type="text" size="5" name="typicalval" value=<%= food.typicalval %> /></td>
+        <td><input id="unit" type="text" size="5" name="unit" value=<%= food.unit %> /></td>        
+        <td><input id="cals" type="text" size="5" name="cals" value=<%= food.cals %> /></td>
+        <td><input id="carbs" type="text" size="5" name="carbs" value=<%= food.carbs %> /></td>
+        <td><input id="fat" type="text" size="5" name="fat" value=<%= food.fat %> /></td>
+        <td><input id="protein" type="text" size="5" name="protein" value=<%= food.protein %> /></td>
+        <td><input id="salt" type="text" size="5" name="salt" value=<%= food.salt %> /></td>
+        <td><input id="sugar" type="text" size="5" name="sugar" value=<%= food.sugar %> /></td> 
+        <td><input type="submit" formaction="/topic7/mid-term/food-updated" value="Update" /></td> 
+        <td><input type="submit" value="Delete"></td>   
+    </form>       
+    </tr>
+    <% }) %>
+ </table>
+
+ </div>	<!-- container end -->
+
+ <!-- Javascript function to check the operation to proceed -->
+ <script>
+    function check() {
+      if(window.confirm('Are you sure to proceed?')){ // ask user for confirmation
+        return true; // execute sql query if pressed OK
+      }
+      else{ // Cancel is pressed
+        window.alert('This has been canceled.'); 
+        return false; // cancel the operation
+      }
+    }
+ </script>
+ <!-- Include Popper.js bootstrap.js to enable using Bootstrap -->
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+ 
+</body>
+</html>

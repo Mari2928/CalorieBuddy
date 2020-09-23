@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+ <head>
+ <title>CalorieBuddy - Search foods</title>
+
+ <!-- Include Bootstrap CSS to enable using the framework -->
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ <!-- Include Handlebars from a CDN to use template engine -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js"></script>
+
+ </head>
+ <body>
+ <div class="container"> <!-- Content start -->
+ <h1> CalorieBuddy - Search foods </h1> 
+ <br>
+ <!-- Navigation tab bar -->
+ <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" href="home">HOME</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="about">About</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="add-food">Add</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="search-food">Search</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="update-food">Update</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="list-foods">List</a>
+    </li>
+ </ul>
+ <br>
+ <div>
+     <article>This is a CalorieBuddy Search food page. Please input the name of a food item to be searched. </article>
+ </div>
+ <br>
+ <form action="/topic7/mid-term/search-result-db" method="GET">
+  <input id="search-box" type="text" name="keyword" placeholder="flour">
+  <input type="submit" value="Search" >
+</form>
+<br>
+ <table border="1" cellspacing="0" cellpadding="5">
+     <tr>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Name</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Typical Value</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Unit</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Cals</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Carbs</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Fat</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Protein</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Salt</font></th>
+         <th bgcolor="#0066CC"><font color="#FFFFFF">Sugar</font></th>
+     </tr>    
+
+     <!-- item is not found: print a message to thhe user -->
+     <% if(availableFoods.length == 0){ %>       
+      <p>No food item is found.<br></p>
+     <% } %> 
+     <!-- go through the list of foods and print the contents -->
+     <% availableFoods.forEach(function(food){ %>
+     <tr>        
+        <td bgcolor="#99FFCC" nowrap><%= food.name %></td>
+        <td valign="top"><%= food.typicalval %></td>
+        <td valign="top"><%= food.unit %></td>
+        <td valign="top"><%= food.cals %></td>
+        <td valign="top"><%= food.carbs %></td>
+        <td valign="top"><%= food.fat %></td>
+        <td valign="top"><%= food.protein %></td>
+        <td valign="top"><%= food.salt %></td>
+        <td valign="top"><%= food.sugar %></td>        
+     </tr>
+     <% }) %>
+ </table>
+
+ </div>	<!-- container end -->
+
+ <!-- Include Popper.js bootstrap.js to enable using Bootstrap -->
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+ 
+</body>
+</html>
